@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #FF9A8B, #FF6A88); 
+            color: #FFFFFF; 
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .box {
+            background-color: #FFFFFF; 
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+        }
+
+        h2,h3 {
+            color: #FF6A88; 
+            margin-bottom: 15px;
+        }
+
+        input {
+            border: 2px solid #FF9A8B; 
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            width: calc(100% - 24px);
+            margin-bottom: 15px;
+            background-color: #F9F9F9;
+        }
+
+        button {
+            background-color: #FF9A8B; 
+            border: none;
+            border-radius: 5px;
+            color: #FFFFFF; 
+            font-size: 16px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FF6A88; 
+        }
+
+        p, h3 {
+            margin: 10px 0;
+        }
+
+        #result {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Guess the Number from 1 to 10:</h2>
+        <input id="inputnumber" type="text" placeholder="Enter a number">
+        <button onclick="checkguess()" id="btn">Check</button>
+        <p id="result">You guessed it right/wrong</p>
+        <h3 id="guesscount">Available guesses: 3</h3>
+    </div>
+
+    <script>
+        let btn = document.getElementById("btn");
+        let result = document.getElementById("result");
+        let guesscount = document.getElementById("guesscount");
+        let randomnumber = Math.floor(Math.random() * 10) + 1;
+        let availableguess = 3;
+
+        const checkguess = () => {
+            let inputnumber = parseInt(document.getElementById("inputnumber").value);
+            if (randomnumber === inputnumber) {
+                result.textContent = "You guessed it right!";
+                result.style.color = "#4CAF50"; 
+                btn.disabled = true;
+            } else {
+                availableguess--;
+                if (availableguess > 0) {
+                    guesscount.textContent = `Available guesses: ${availableguess}`;
+                    result.textContent = "You guessed it wrong.";
+                    result.style.color = "#D32F2F";
+                } else {
+                    guesscount.textContent = "Available guesses: 0";
+                    result.textContent = "You guessed it wrong. No more guesses left.";
+                    btn.disabled = true;
+                    result.style.color = "#D32F2F"; 
+                }
+            }
+        }
+    </script>
+</body>
+</html>
